@@ -13,5 +13,6 @@ public class UserProfile {
         public static final String userName = "userName";
         public static final String dateOfBirth = "dateOfBirth";
         public static final String gender = "gender";
+        public static final String password = "password";
     }
 }
