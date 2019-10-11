@@ -93,6 +93,37 @@ public class DBHelper extends SQLiteOpenHelper {
         return db.delete(UserProfile.Users.TABLE_NAME, selection, selectionArgs) > 0;
     }
 
+    public UserModel searchUserInfo(String userName) {
+        SQLiteDatabase db = getReadableDatabase();
+        String[] columns = {
+                UserProfile.Users._ID,
+                UserProfile.Users.userName,
+                UserProfile.Users.dateOfBirth,
+                UserProfile.Users.gender
+        };
+
+        String selection = UserProfile.Users.userName + " LIKE ?";
+        String[] selectionArgs = {userName};
+
+        Cursor cursor = db.query(
+                UserProfile.Users.TABLE_NAME,
+                columns,
+                selection,
+                selectionArgs,
+                null,
+                null,
+                "UserName DESC"
+        );
+
+        return new UserModel(
+                cursor.getInt(0),
+                cursor.getString(1),
+                cursor.getString(2),
+                cursor.getString(3)
+        );
+
+    }
+
     public boolean loginCredentials(String userName, String password) {
         return true;
     }
