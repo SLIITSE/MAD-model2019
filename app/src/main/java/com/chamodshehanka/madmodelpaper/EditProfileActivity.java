@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +18,7 @@ public class EditProfileActivity extends AppCompatActivity {
     private EditText txtUserName, txtDateOfBirth, txtPassword;
     private Button btnSearch, btnEdit, btnDelete;
     private DBHelper dbHelper;
+    private String gender;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +35,19 @@ public class EditProfileActivity extends AppCompatActivity {
         btnDelete = findViewById(R.id.btnDelete);
         btnEdit = findViewById(R.id.btnEdit);
 
+        RadioGroup radioGroup = findViewById(R.id.radioGroup);
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                int checkedRadio = radioGroup.getCheckedRadioButtonId();
+                RadioButton radioButton = findViewById(checkedRadio);
+                gender = radioButton.getText().toString();
+            }
+        });
+
         searchAction();
         deleteAction();
+        editAction();
     }
 
     private void searchAction() {
@@ -75,7 +89,13 @@ public class EditProfileActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String userName = txtUserName.getText().toString();
                 String dob = txtDateOfBirth.getText().toString();
-//                String gender
+
+                if (gender != null)
+                dbHelper.updateInfo(new UserModel(
+                        userName,
+                        dob,
+                        gender
+                ));
             }
         });
     }
