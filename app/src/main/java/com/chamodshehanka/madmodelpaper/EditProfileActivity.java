@@ -33,6 +33,7 @@ public class EditProfileActivity extends AppCompatActivity {
         btnEdit = findViewById(R.id.btnEdit);
 
         searchAction();
+        deleteAction();
     }
 
     private void searchAction() {
@@ -47,6 +48,22 @@ public class EditProfileActivity extends AppCompatActivity {
                     txtDateOfBirth.setText(user.getDob());
                 } else {
                     Toast.makeText(EditProfileActivity.this, "No such user", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+    }
+
+    private void deleteAction() {
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String userName = txtUserName.getText().toString();
+
+                boolean isDeleted = dbHelper.deleteInfo(userName);
+                if (isDeleted) {
+                    Toast.makeText(EditProfileActivity.this, "Delete successfully", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(EditProfileActivity.this, "Deletion failed!!", Toast.LENGTH_LONG).show();
                 }
             }
         });
