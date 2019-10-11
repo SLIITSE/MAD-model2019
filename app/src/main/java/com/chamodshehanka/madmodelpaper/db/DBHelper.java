@@ -55,6 +55,8 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put(UserProfile.Users.dateOfBirth, user.getDob());
         values.put(UserProfile.Users.gender, user.getGender());
 
+        String selection = UserProfile.Users.userName + " LIKE ?";
+
         return false;
     }
 
