@@ -2,6 +2,7 @@ package com.chamodshehanka.madmodelpaper.db;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -61,6 +62,36 @@ public class DBHelper extends SQLiteOpenHelper {
         return db.update(UserProfile.Users.TABLE_NAME, values, selection, selectionArgs) > 0;
     }
 
+    public Cursor readInfoAll() {
+        SQLiteDatabase db = getReadableDatabase();
+        String[] columns = {
+                UserProfile.Users._ID,
+                UserProfile.Users.userName,
+                UserProfile.Users.dateOfBirth,
+                UserProfile.Users.gender
+        };
+
+        String orderBy = UserProfile.Users.userName + " DESC";
+
+        return db.query(
+                UserProfile.Users.TABLE_NAME,
+                columns,
+                null,
+                null,
+                null,
+                null,
+                orderBy
+        );
+    }
+
+    public boolean deleteInfo(String userName) {
+        SQLiteDatabase db = getReadableDatabase();
+        // Define 'where' part of query.
+        String selection = UserProfile.Users.userName + " LIKE ?";
+        String[] selectionArgs = {userName};
+
+        return db.delete(UserProfile.Users.TABLE_NAME, selection, selectionArgs) > 0;
+    }
 
     public boolean loginCredentials(String userName, String password) {
         return true;
