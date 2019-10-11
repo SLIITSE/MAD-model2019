@@ -56,8 +56,9 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put(UserProfile.Users.gender, user.getGender());
 
         String selection = UserProfile.Users.userName + " LIKE ?";
+        String[] selectionArgs = {user.getUserName()};
 
-        return false;
+        return db.update(UserProfile.Users.TABLE_NAME, values, selection, selectionArgs) > 0;
     }
 
 
