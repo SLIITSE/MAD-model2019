@@ -68,4 +68,15 @@ public class EditProfileActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void editAction() {
+        btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String userName = txtUserName.getText().toString();
+                String dob = txtDateOfBirth.getText().toString();
+//                String gender
+            }
+        });
+    }
 }
