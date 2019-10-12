@@ -1,18 +1,18 @@
 package com.chamodshehanka.madmodelpaper;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioGroup;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.chamodshehanka.madmodelpaper.db.DBHelper;
+import com.chamodshehanka.madmodelpaper.model.UserModel;
 
 public class ProfileManagementActivity extends AppCompatActivity {
 
-    private EditText txtUserName, txtDateofBirth, txtPassword;
+    private EditText txtUserName, txtDateOfBirth, txtPassword;
     private Button btnUpdate;
     private DBHelper dbHelper;
 
@@ -24,7 +24,7 @@ public class ProfileManagementActivity extends AppCompatActivity {
         dbHelper = new DBHelper(getApplicationContext());
 
         txtUserName = findViewById(R.id.txtUserName);
-        txtDateofBirth = findViewById(R.id.txtDOB);
+        txtDateOfBirth = findViewById(R.id.txtDOB);
         txtPassword = findViewById(R.id.txtPassword);
 
 //        RadioGroup radioGroup = findViewById(R.id.)
@@ -36,7 +36,17 @@ public class ProfileManagementActivity extends AppCompatActivity {
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String userName = txtUserName.getText().toString();
+                String dob = txtDateOfBirth.getText().toString();
+                String password = txtPassword.getText().toString();
 
+                if (!userName.isEmpty() && !dob.isEmpty() && !password.isEmpty()) {
+                    dbHelper.updateInfo(new UserModel(
+                            userName,
+                            dob,
+                            null
+                    ));
+                }
             }
         });
     }
