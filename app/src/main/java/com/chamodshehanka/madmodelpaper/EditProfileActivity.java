@@ -90,12 +90,19 @@ public class EditProfileActivity extends AppCompatActivity {
                 String userName = txtUserName.getText().toString();
                 String dob = txtDateOfBirth.getText().toString();
 
-                if (gender != null)
-                dbHelper.updateInfo(new UserModel(
-                        userName,
-                        dob,
-                        gender
-                ));
+                if (gender != null) {
+                    boolean isUpdated = dbHelper.updateInfo(new UserModel(
+                            userName,
+                            dob,
+                            gender
+                    ));
+
+                    if (isUpdated) {
+                        Toast.makeText(EditProfileActivity.this, "Updated successfully", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(EditProfileActivity.this, "Update failed!!", Toast.LENGTH_LONG).show();
+                    }
+                }
             }
         });
     }
